@@ -27,7 +27,8 @@ RUN apk update && apk upgrade && \
         git \
         nano \
         wget \
-        unzip
+        unzip \
+        linux-headers
 
 # PHP extensions
 RUN docker-php-ext-configure gd --with-jpeg --with-webp --with-freetype && \
