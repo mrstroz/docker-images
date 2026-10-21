@@ -29,7 +29,7 @@ cd php-app/apache
 Build a default PHP image with predefined configurations:
 
 ```bash
-docker build -t mariuszstroz/php8.1-fpm-alpine .
+docker build -t mariuszstroz/php8.4-fpm-alpine .
 ```
 
 #### Custom Build with Arguments
@@ -39,17 +39,17 @@ Customize your PHP image by specifying version and variant:
 ```bash
 # Build PHP 8.3 with Apache
 cd php-app/apache
-docker build --build-arg PHP_VERSION=8.3 -t mariuszstroz/php8.3-apache .
+docker build --build-arg PHP_VERSION=8.3.36 -t mariuszstroz/php8.3-apache .
 
 # Build PHP 8.2 with FPM Alpine
 cd php-app/fpm-alpine
-docker build --build-arg PHP_VERSION=8.2 -t mariuszstroz/php8.2-fpm-alpine .
+docker build --build-arg PHP_VERSION=8.2.35 -t mariuszstroz/php8.2-fpm-alpine .
 ```
 
 ### Available Build Arguments
 
-- `PHP_VERSION`: Specify PHP version (e.g., 8.1, 8.2, 8.3)
-- `PHP_VARIANT`: Choose image variant (e.g., `fpm-alpine`, `apache`)
+- `PHP_VERSION`: Exact PHP patch version. Default: `8.4.27`. Supported: `8.2.35`, `8.3.36`, `8.4.27`, `8.5.12` (October 2026 security release). PHP 8.1 is EOL and is no longer supported.
+  - **Known issue:** `8.5.12` does not build yet, because `pecl install mongodb-1.19.4` fails on PHP 8.5. The MongoDB extension must be upgraded before you can build 8.5 images.
 
 ### Pushing Images to Docker Hub
 
@@ -63,7 +63,7 @@ docker login
 
 ```bash
 # Push the image you just built
-docker push mariuszstroz/php8.1-fpm-alpine
+docker push mariuszstroz/php8.4-fpm-alpine
 ```
 
 ### Pushing Images to GitHub Container Registry (ghcr.io)
@@ -84,8 +84,8 @@ echo $GITHUB_TOKEN | docker login ghcr.io -u USERNAME --password-stdin
 
 ```bash
 # Tag the image you just built
-docker tag mariuszstroz/php8.1-fpm-alpine ghcr.io/USERNAME/php8.1-fpm-alpine
+docker tag mariuszstroz/php8.4-fpm-alpine ghcr.io/USERNAME/php8.4-fpm-alpine
 
 # Push the tagged image
-docker push ghcr.io/USERNAME/php8.1-fpm-alpine
+docker push ghcr.io/USERNAME/php8.4-fpm-alpine
 ```

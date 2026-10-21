@@ -15,15 +15,16 @@ Build images from their respective directories:
 ```bash
 # FPM Alpine variant
 cd php-app/fpm-alpine
-docker build --build-arg PHP_VERSION=8.3 -t mariuszstroz/php8.3-fpm-alpine .
+docker build --build-arg PHP_VERSION=8.3.36 -t mariuszstroz/php8.3-fpm-alpine .
 
 # Apache variant
 cd php-app/apache
-docker build --build-arg PHP_VERSION=8.3 -t mariuszstroz/php8.3-apache .
+docker build --build-arg PHP_VERSION=8.3.36 -t mariuszstroz/php8.3-apache .
 ```
 
 ### Build Arguments
-- `PHP_VERSION`: PHP version (default: 8.1, supports 8.1, 8.2, 8.3)
+- `PHP_VERSION`: exact PHP patch version (default: 8.4.27). Supported: 8.2.35, 8.3.36, 8.4.27, 8.5.12 (October 2026 security release). Pin exact patch versions, not floating minor tags. 8.1 is EOL and no longer supported.
+  - Known issue: 8.5.12 does not build yet, because `pecl install mongodb-1.19.4` fails on PHP 8.5. Upgrade the MongoDB extension before building 8.5 images.
 
 ## Architecture
 
